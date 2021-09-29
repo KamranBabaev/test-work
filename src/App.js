@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React, {useEffect} from "react";
+import {MainPage} from "./components/MainPage/MainPage";
 import './App.css';
+import {fetchResultsAuction} from "./redux/reducers/resultsReducer";
+import {useDispatch, useSelector} from "react-redux";
 
 function App() {
+  const results = useSelector(state => state.results)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchResultsAuction())
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainPage results={results}/>
     </div>
   );
 }
